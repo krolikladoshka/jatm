@@ -1,0 +1,4 @@
+*.py[cd]
+__pychache__/
+.idea/
+.code/
