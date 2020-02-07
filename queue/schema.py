@@ -20,7 +20,7 @@ class SubmitTask(BaseModel):
 
 class TaskStatus(Enum):
     enqueued = 'enqueued'
-    processed = 'processed'
+    processing = 'processing'
 
 
 class Task(BaseModel):
