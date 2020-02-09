@@ -1,5 +1,4 @@
 from datetime import datetime
-from enum import Enum
 from typing import Any, Dict
 
 from pydantic import BaseModel
@@ -16,17 +15,3 @@ class SubmitTask(BaseModel):
         result['started'] = str(datetime.utcnow())
 
         return result
-
-
-class TaskStatus(Enum):
-    enqueued = 'enqueued'
-    processing = 'processing'
-
-
-class Task(BaseModel):
-    status: TaskStatus
-    n: int
-    d: float
-    n1: float
-    current_value: float
-    started_date: datetime
