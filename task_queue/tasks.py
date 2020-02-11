@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List
 
-from queue.compute import compute
+from task_queue.compute import compute
 
 
 class TaskStatus(str, Enum):
@@ -64,7 +64,6 @@ class TaskManager:
         await asyncio.gather(workers)
 
     async def worker(self):
-        print('test!')
         while not self.shutdown_event.is_set():
             task = await self.task_queue.get()
             self.processing_tasks.append(task)

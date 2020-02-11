@@ -1,16 +1,15 @@
 from aiohttp import web
-from queue import app as queue_app, TaskManager
+from task_queue import app as queue_app, TaskManager
 
-PARALLEL_TASKS_COUNT = 1
+PARALLEL_TASKS_COUNT = 2
 
 app = web.Application()
-app.add_subapp('/queue', queue_app)
+app.add_subapp('/task_queue', queue_app)
 app[queue_app['name']] = queue_app
 
 
 async def start_task_manager(app: web.Application):
-    app['queue']['task_manager'] = await TaskManager.create(PARALLEL_TASKS_COUNT)
-    print('test')
+    app['task_queue']['task_manager'] = await TaskManager.create(PARALLEL_TASKS_COUNT)
 
 
 async def shutdown_task_manager(app: web.Application):

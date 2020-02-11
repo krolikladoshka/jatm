@@ -3,9 +3,9 @@ from typing import Type
 from aiohttp import web
 from pydantic import BaseModel, ValidationError
 
-from queue import schema, util
-from queue.router import router
-from queue.tasks import TaskManager, Task
+from task_queue import schema, util
+from task_queue.router import router
+from task_queue.tasks import TaskManager, Task
 
 
 def validate_schema(schema: Type[BaseModel]):
@@ -19,8 +19,6 @@ def validate_schema(schema: Type[BaseModel]):
             try:
                 validated_body = schema(**body)
             except ValidationError as e:
-                print(e)
-
                 raise web.HTTPBadRequest(body=e.json())
 
             return await func(request, validated_body, *args, **kwargs)
@@ -46,6 +44,3 @@ async def list_tasks(request):
     task_manager: TaskManager = request.app['task_manager']
 
     return util.json_response(data=[task.dict() for task in await task_manager.list_tasks()])
-
-
-print('test')
