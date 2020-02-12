@@ -28,11 +28,11 @@ class Task:
 
     v: float = field(init=False)
 
-    started_datetime: datetime = field(init=False)
+    created_datetime: datetime = field(init=False)
 
     def __post_init__(self):
         self.v = self.n1
-        self.started_datetime = datetime.utcnow()
+        self.created_datetime = datetime.utcnow()
 
     def dict(self):
         return dataclasses.asdict(self)
